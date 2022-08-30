@@ -16,7 +16,7 @@ public class DAOUniversidad {
 	String INSERT = "INSERT INTO UNIVERSIDAD VALUES(SEQ_ID_UNIVERSIDAD.NEXTVAL,?,?)";
 	
 	private final static
-	String BUSCAR_NOMBRE_UBICACION = "SELECT * FROM UNIVERSIDAD WHERE NOMBRE=? AND UBICACION=?";
+	String BUSCAR_NOMBRE = "SELECT * FROM UNIVERSIDAD WHERE NOMBRE=?";
 	
 	private final static
 	String BUSCAR_ID = "SELECT * FROM UNIVERSIDAD WHERE ID_UNIVERSIDAD=?";
@@ -47,15 +47,14 @@ public class DAOUniversidad {
 		
 	}
 	
-	public static Universidad buscarNombreUbicacion(String nombre, String ubicacion) {
+	public static Universidad buscarNombre(String nombre) {
 		
 		Universidad u = null;
 		
 		try {
-			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(BUSCAR_NOMBRE_UBICACION);
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(BUSCAR_NOMBRE);
 			
 			statement.setString(1, nombre);
-			statement.setString(2, ubicacion);
 			
 			ResultSet resultado = statement.executeQuery();
 			

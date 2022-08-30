@@ -46,7 +46,7 @@ public class DAOCarrera {
 			
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT);
 		
-			statement.setInt(1, DAOUniversidad.buscarNombreUbicacion((c.getUniversidad().getNombre()),(c.getUniversidad().getUbicacion())).getIdUniversidad());		
+			statement.setInt(1, DAOUniversidad.buscarNombre((c.getUniversidad().getNombre())).getIdUniversidad());		
 			statement.setString(2, c.getNombre());
 			
 			int retorno = statement.executeUpdate();
