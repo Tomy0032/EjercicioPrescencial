@@ -3,6 +3,7 @@ package DAOs;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import javax.swing.JOptionPane;
 
@@ -19,6 +20,12 @@ public class DAOUniversidad {
 	
 	private final static
 	String BUSCAR_ID = "SELECT * FROM UNIVERSIDAD WHERE ID_UNIVERSIDAD=?";
+	
+	private final static
+	String SELECT_ALL_BY_ID = "SELECT * FROM UNIVERSIDAD ORDER BY ID_UNIVERSIDAD";
+	
+	private final static
+	String SELECT_ALL_BY_NOMBRE = "SELECT * FROM UNIVERSIDAD ORDER BY NOMBRE";
 	
 	public static boolean insertUniversidad(Universidad u) {
 		
@@ -66,7 +73,7 @@ public class DAOUniversidad {
 		
 	}
 	
-public static Universidad buscarId(int id) {
+	public static Universidad buscarId(int id) {
 		
 		Universidad u = null;
 		
@@ -83,6 +90,56 @@ public static Universidad buscarId(int id) {
 			}
 			
 			return u;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public static LinkedList<Universidad> allUniversidades(){
+		
+		LinkedList<Universidad> us = new LinkedList<>();
+		Universidad u = null;
+		
+		try {
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(SELECT_ALL_BY_ID);
+			
+			ResultSet resultado = statement.executeQuery();
+			
+			while(resultado.next()) {
+				u = new Universidad(resultado.getString("NOMBRE"),resultado.getString("UBICACION"));
+				u.setIdUniversidad(resultado.getInt("ID_UNIVERSIDAD"));
+				us.add(u);
+			}
+			
+			return us;
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	public static LinkedList<Universidad> allUniversidadesNombre(){
+		
+		LinkedList<Universidad> us = new LinkedList<>();
+		Universidad u = null;
+		
+		try {
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(SELECT_ALL_BY_NOMBRE);
+			
+			ResultSet resultado = statement.executeQuery();
+			
+			while(resultado.next()) {
+				u = new Universidad(resultado.getString("NOMBRE"),resultado.getString("UBICACION"));
+				u.setIdUniversidad(resultado.getInt("ID_UNIVERSIDAD"));
+				us.add(u);
+			}
+			
+			return us;
 			
 		}catch(SQLException e) {
 			e.printStackTrace();

@@ -28,7 +28,14 @@ public class Main {
 		Carrera c2 = DAOCarrera.buscarCarrera("LTI");
 		System.out.println(c2);
 		System.out.println(c2.getUniversidad().toString());
-		System.out.println("Prueba :)");
+		
+		Universidad u = new Universidad("Universidad de Los Angeles","Merida, Venezuela");
+		if(DAOUniversidad.insertUniversidad(u)) {
+			System.out.println("Se inserto una universidad");
+		}else {
+			System.out.println("No se inserto una universidad");
+		}
+		
 	}
 
 }
