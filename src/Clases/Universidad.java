@@ -5,7 +5,6 @@ public class Universidad {
 	private int idUniversidad;
 	private String nombre;
 	private String ubicacion;
-	public int prueba;
 	
 	public Universidad(int idUniversidad, String nombre) {
 		this.idUniversidad = idUniversidad;
