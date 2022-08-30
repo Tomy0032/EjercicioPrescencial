@@ -6,8 +6,7 @@ public class Carrera {
 	private String nombre;
 	private Universidad universidad;
 	
-	public Carrera(int idCarrera, String nombre, Universidad universidad) {
-		this.idCarrera = idCarrera;
+	public Carrera(String nombre, Universidad universidad) {
 		this.nombre = nombre;
 		this.universidad = universidad;
 	}

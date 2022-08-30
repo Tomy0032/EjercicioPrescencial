@@ -6,9 +6,9 @@ public class Universidad {
 	private String nombre;
 	private String ubicacion;
 	
-	public Universidad(int idUniversidad, String nombre) {
-		this.idUniversidad = idUniversidad;
+	public Universidad(String nombre, String ubicacion) {
 		this.nombre = nombre;
+		this.ubicacion = ubicacion;
 	}
 
 	public int getIdUniversidad() {
