@@ -28,7 +28,7 @@ public class Main {
 		Carrera c2 = DAOCarrera.buscarCarrera("LTI");
 		System.out.println(c2);
 		System.out.println(c2.getUniversidad().toString());
-
+		System.out.println("Prueba :)");
 	}
 
 }
