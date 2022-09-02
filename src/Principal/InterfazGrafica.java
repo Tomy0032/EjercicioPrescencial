@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
 import Clases.Carrera;
@@ -19,6 +20,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import java.awt.Rectangle;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -27,13 +30,17 @@ import java.awt.SystemColor;
 import java.awt.Color;
 import java.awt.Insets;
 import java.awt.Cursor;
+import java.awt.Dimension;
+
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.SwingConstants;
 
 public class InterfazGrafica extends JFrame {
 	
 	private LinkedList<Universidad> universidades = null;
-	private ArrayList<String> lista = null;
+	private ArrayList<String> listaUniversidades = null;
 	private String[] nombreUniversidad = null;
-
 	private JPanel contentPane;
 	private JComboBox comboBoxUniversidad;
 	private JPanel panelRegistroCarrera;
@@ -44,7 +51,6 @@ public class InterfazGrafica extends JFrame {
 	private JLabel lblNombreCarrera;
 	private JButton btnMenuAgregarCarrera;
 	private JButton btnMenuAgregarUniversidad;
-	private JPanel panelMenu;
 	private JPanel panelRegistroUniversidad;
 	private JPanel containerRegistroUniversidad;
 	private JTextField textFieldNombreUniversidad;
@@ -52,8 +58,10 @@ public class InterfazGrafica extends JFrame {
 	private JLabel lblUbicacionUniversidad;
 	private JButton btnAgregarUniversidad;
 	private JTextField textFieldUbicacionUniversidad;
+	
+	private JPanel panelMenu;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -68,16 +76,17 @@ public class InterfazGrafica extends JFrame {
 	
 	public void cargarUniversidades() {
 		universidades = DAOUniversidad.allUniversidadesNombre();
-		lista = new ArrayList<>();
+		listaUniversidades = new ArrayList<>();
 		for(Universidad u : universidades) {
-			lista.add(u.getNombre());
+			listaUniversidades.add(u.getNombre());
 		}
-		nombreUniversidad = (String[]) lista.toArray(new String[lista.size()]);
+		nombreUniversidad = (String[]) listaUniversidades.toArray(new String[listaUniversidades.size()]);
 		comboBoxUniversidad.setModel(new DefaultComboBoxModel(nombreUniversidad));
 	}
 
 	public InterfazGrafica() {
-				
+		
+	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 834, 384);
 		contentPane = new JPanel();
@@ -133,6 +142,7 @@ public class InterfazGrafica extends JFrame {
 				
 				if(nombreCarrera.equals("")) {
 					continuar = false;
+					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para la carrera", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 				}
 				
 				if(continuar) {
@@ -142,7 +152,11 @@ public class InterfazGrafica extends JFrame {
 						Carrera c = new Carrera(nombreCarrera,DAOUniversidad.buscarNombre(nombreUniversidad));
 						DAOCarrera.insertCarrera(c);
 						
+						JOptionPane.showMessageDialog(null, "Carrera agregada correctamente");
+						
 					}else {
+						
+						JOptionPane.showMessageDialog(null, "La carrera " + nombreCarrera +" ya existe", "Error", JOptionPane.WARNING_MESSAGE);
 						
 					}					
 					
@@ -184,7 +198,6 @@ public class InterfazGrafica extends JFrame {
 				textFieldNombreCarrera.setText("");
 				textFieldNombreUniversidad.setText("");
 				textFieldUbicacionUniversidad.setText("");
-				cargarUniversidades();
 			}
 		});
 		btnMenuAgregarUniversidad.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -231,6 +244,12 @@ public class InterfazGrafica extends JFrame {
 				
 				if(nombreUniversidad.equals("")) {
 					continuar = false;
+					JOptionPane.showMessageDialog(null, "Debe ingresar un nombre para la universidad", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
+				}
+				
+				if(ubicacionUniversidad.equals("") && continuar) {
+					continuar = false;
+					JOptionPane.showMessageDialog(null, "Debe ingresar la ubicacón de la universidad", "Campos incompletos", JOptionPane.WARNING_MESSAGE);
 				}
 				
 				if(continuar) {
@@ -242,7 +261,11 @@ public class InterfazGrafica extends JFrame {
 						
 						cargarUniversidades();
 						
+						JOptionPane.showMessageDialog(null, "Universidad agregada correctamente");
+						
 					}else {
+						
+						JOptionPane.showMessageDialog(null, "La universidad " + nombreUniversidad +" ya existe", "Error", JOptionPane.WARNING_MESSAGE);
 						
 					}					
 					
